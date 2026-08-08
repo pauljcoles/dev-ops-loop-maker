@@ -1,0 +1,104 @@
+# Light-mode counterpart: the lobe holes show the background, so the Dev/Ops
+# labels flip to dark and each hue is deepened to carry white band labels.
+title: Delivery lifecycle
+lobes:
+  left: Dev
+  right: Ops
+stages:
+- name: Plan
+  label: Shape the work
+  colour: '#1565c0'
+  note: 'Agree the problem
+
+    Size the outcome
+
+    Pick a success measure'
+- name: Code
+  label: Build it
+  colour: '#0284a6'
+  note: 'Small changes
+
+    Review before merge
+
+    Keep it reversible'
+- name: Build
+  label: Package
+  colour: '#0e8b86'
+  note: 'Reproducible builds
+
+    Pin dependencies
+
+    Scan for vulnerabilities'
+- name: Test
+  label: Check it works
+  colour: '#179a66'
+  note: 'Automated suites
+
+    Cover the risky paths
+
+    Fail fast and loudly'
+- name: Release
+  label: Approve
+  colour: '#5f8f24'
+  note: 'Change record raised
+
+    Sign-off captured
+
+    Rollback plan ready'
+- name: Deploy
+  label: Ship safely
+  colour: '#c07f08'
+  note: 'Progressive rollout
+
+    Guardrails per environment
+
+    One switch to stop it'
+- name: Operate
+  label: Run it
+  colour: '#c2371f'
+  note: 'Watch the golden signals
+
+    Handle incidents
+
+    Keep costs in view'
+- name: Monitor
+  label: Learn and feed back
+  colour: '#a01f75'
+  arrow_depth: 96
+  note: 'Measure real usage
+
+    Compare against the goal
+
+    Send findings back to Plan'
+style:
+  width: 2300
+  height: 1300
+  scale: 640
+  curve: rings
+  ring_ratio: 0.6
+  reverse: true
+  offset: 5.5
+  ribbon_width: 112
+  segment_style: arrow
+  arrow_depth: 46
+  badge_layout: quadrant
+  row_margin: 46
+  badge_radius: 38
+  badge_label_size: 27
+  note_size: 25
+  note_wrap: 30
+  note_bullet: "\xB7 "
+  note_colour: '#55636b'
+  background: '#ffffff'
+  band_label_colour: '#ffffff'
+  label_size: 26
+  title_size: 40
+  title_colour: '#12171c'
+  loop_label_size: 62
+  loop_icon_colour: '#12171c'
+  loop_icon_stroke: 4
+  grid: true
+  grid_colour: '#12171c'
+  grid_opacity: 0.28
+  grid_dash: 4,11
+  loop_label_colour: '#12171c'

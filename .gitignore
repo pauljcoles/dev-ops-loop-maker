@@ -1,0 +1,12 @@
+# Claude Code local settings — contains machine-specific absolute paths
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+
+# private, not for sharing
+private/
