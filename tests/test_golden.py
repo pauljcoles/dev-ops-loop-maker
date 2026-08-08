@@ -180,6 +180,31 @@ class TestConfigHandling(unittest.TestCase):
                               "style": {"badge_layout": layout}})
                 self.assertIn("<svg", out)
 
+    def _bullets(self, note, size=12):
+        import re
+        out = render({"stages": [{"name": "A", "note": note}, "B"],
+                      "style": {"note_bullet": "- ", "note_size": size}})
+        return re.findall(rf'font-size="{size}"[^>]*>([^<]*)</text>', out)
+
+    def test_block_scalar_does_not_add_an_empty_bullet(self):
+        """`note: |` keeps a trailing newline; splitting it used to add a bullet."""
+        note = yaml.safe_load("note: |\n  one\n  two\n")["note"]
+        self.assertTrue(note.endswith("\n"), "expected a trailing newline to test")
+        self.assertEqual(self._bullets(note), ["- one", "- two"])
+
+    def test_blank_lines_inside_a_note_are_dropped(self):
+        self.assertEqual(self._bullets("one\n\ntwo"), ["- one", "- two"])
+
+    def test_whitespace_only_lines_are_dropped(self):
+        self.assertEqual(self._bullets("one\n   \ntwo"), ["- one", "- two"])
+
+    def test_the_note_forms_agree(self):
+        """A block literal and an escaped string must give the same bullets."""
+        block = yaml.safe_load("note: |-\n  one\n  two\n")["note"]
+        quoted = yaml.safe_load('note: "one\\ntwo"')["note"]
+        self.assertEqual(block, quoted)
+        self.assertEqual(self._bullets(block), self._bullets(quoted))
+
     def test_no_eight_digit_hex_is_emitted(self):
         """SVG 1.1 has no #rrggbbaa; renderers drop the whole declaration."""
         import re

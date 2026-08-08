@@ -1,0 +1,86 @@
+title: The N+1 Bicycle Acquisition Lifecycle
+
+lobes:
+  left: Rider
+  right: Excuses
+
+stages:
+  - name: Trails
+    label: Need a mountain bike
+    note: |-
+      The trails are rough
+      Your current bike is "too precious"
+      This is clearly a safety purchase
+
+  - name: Gravel
+    label: Need a gravel bike
+    note: |-
+      Road bike is too fragile
+      MTB is too slow
+      You discover gravel YouTube
+
+  - name: Tarmac
+    label: Need a road bike
+    note: |-
+      The gravel bike weighs a ton
+      Someone mentions the club run
+      Marginal gains are a lifestyle
+
+  - name: Winter
+    label: Need a winter bike
+    note: |-
+      Salt will eat the good one
+      Mudguards ruin the lines
+      Cheaper than a new drivetrain
+
+  - name: Commute
+    label: Need a commuter
+    note: |-
+      You will not lock up the good one
+      Panniers do not fit a race bike
+      It pays for itself, allegedly
+
+  - name: Tour
+    label: Need a touring bike
+    note: |-
+      Nothing you own takes a rack
+      Two nights out needs a third cage
+      Steel is comfortable, obviously
+
+  - name: Track
+    label: Need a track bike
+    note: |-
+      One gear builds character
+      The session is already booked
+      Barely a bike, so it hardly counts
+
+  - name: Storage
+    label: Need a bigger shed
+    arrow_depth: 88          # feedback edge: more space, more room for N+1
+    note: |-
+      The hallway is now a bike shop
+      Someone has views on the hallway
+      A shed is not a bike, so N is unchanged
+
+style:
+  theme: dark
+  width: 1900
+  height: 1060
+  scale: 500
+  curve: rings
+  ring_ratio: 0.6
+  ribbon_width: 96
+  segment_style: arrow
+  arrow_depth: 40
+  badge_layout: quadrant
+  row_margin: 40
+  badge_radius: 34
+  badge_label_size: 22
+  note_size: 18
+  note_wrap: 28
+  note_bullet: "· "
+  label_size: 24
+  title_size: 34
+  loop_label_size: 46
+  grid: true
+  grid_dash: "4,11"

@@ -1,67 +1,73 @@
 title: Delivery lifecycle
+
 lobes:
   left: Dev
   right: Ops
+
+# `note: |-` is a YAML block literal: one bullet per line, no escapes needed.
+# `note: "a\nb"` works too. Blank lines are ignored either way.
 stages:
-- name: Plan
-  label: Shape the work
-  note: 'Agree the problem
+  - name: Plan
+    label: Shape the work
+    note: |-
+      Agree the problem
+      Size the outcome
+      Pick a success measure
 
-    Size the outcome
+  - name: Code
+    label: Build it
+    note: |-
+      Small changes
+      Review before merge
+      Keep it reversible
 
-    Pick a success measure'
-- name: Code
-  label: Build it
-  note: 'Small changes
+  - name: Build
+    label: Package
+    note: |-
+      Reproducible builds
+      Pin dependencies
+      Scan for vulnerabilities
 
-    Review before merge
+  - name: Test
+    label: Check it works
+    note: |-
+      Automated suites
+      Cover the risky paths
+      Fail fast and loudly
 
-    Keep it reversible'
-- name: Build
-  label: Package
-  note: 'Reproducible builds
+  - name: Release
+    label: Approve
+    note: |-
+      Change record raised
+      Sign-off captured
+      Rollback plan ready
 
-    Pin dependencies
+  - name: Deploy
+    label: Ship safely
+    note: |-
+      Progressive rollout
+      Guardrails per environment
+      One switch to stop it
 
-    Scan for vulnerabilities'
-- name: Test
-  label: Check it works
-  note: 'Automated suites
+  - name: Operate
+    label: Run it
+    note: |-
+      Watch the golden signals
+      Handle incidents
+      Keep costs in view
 
-    Cover the risky paths
+  - name: Monitor
+    label: Learn and feed back
+    arrow_depth: 96          # deeper chevron marks the feedback edge into Plan
+    note: |-
+      Measure real usage
+      Compare against the goal
+      Send findings back to Plan
 
-    Fail fast and loudly'
-- name: Release
-  label: Approve
-  note: 'Change record raised
-
-    Sign-off captured
-
-    Rollback plan ready'
-- name: Deploy
-  label: Ship safely
-  note: 'Progressive rollout
-
-    Guardrails per environment
-
-    One switch to stop it'
-- name: Operate
-  label: Run it
-  note: 'Watch the golden signals
-
-    Handle incidents
-
-    Keep costs in view'
-- name: Monitor
-  label: Learn and feed back
-  arrow_depth: 96
-  note: 'Measure real usage
-
-    Compare against the goal
-
-    Send findings back to Plan'
 style:
-  theme: light
+  theme: light             # the only line that differs from the dark version
+
+  # shape
   width: 2300
   height: 1300
   scale: 640
@@ -70,18 +76,24 @@ style:
   reverse: true
   offset: 5.5
   ribbon_width: 112
+
+  # segments
   segment_style: arrow
   arrow_depth: 46
+
+  # callouts
   badge_layout: quadrant
   row_margin: 46
   badge_radius: 38
   badge_label_size: 27
   note_size: 25
   note_wrap: 30
-  note_bullet: "\xB7 "
+  note_bullet: "· "
+
+  # type and grid
   label_size: 26
   title_size: 40
   loop_label_size: 62
   loop_icon_stroke: 4
   grid: true
-  grid_dash: 4,11
+  grid_dash: "4,11"

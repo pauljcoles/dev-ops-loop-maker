@@ -507,13 +507,20 @@ def render(cfg):
         canvas gets. Only the first line of a wrapped bullet takes the
         marker -- SVG collapses leading whitespace, so a hanging indent on
         the continuation would not survive anyway.
+
+        Blank lines are dropped rather than rendered as empty bullets. A YAML
+        block scalar (`note: |`) keeps its trailing newline, so splitting it
+        would otherwise end every note with a stray marker, and a blank line
+        used to space a note out would punch a hole in the middle of one.
         """
         if not st.get("note"):
             return []
         out = []
         for raw in str(st["note"]).split("\n"):
+            if not raw.strip():
+                continue
             parts = textwrap.wrap(raw, note_wrap) if note_wrap else [raw]
-            for k, part in enumerate(parts or [""]):
+            for k, part in enumerate(parts):
                 out.append(f"{note_bullet}{part}" if k == 0 else part)
         return out
 
