@@ -16,7 +16,13 @@ pip install pyyaml
 python loopgen.py examples/delivery-loop.yml -o loop.svg
 ```
 
-There are no lint/test commands configured in this repo.
+```bash
+python -m unittest discover tests
+```
+
+Tests are golden-file based: each `examples/*.yml` must still render byte-for-byte
+to the `.svg` beside it, so an intended output change means re-rendering and
+committing the examples. The placement rules below are also asserted directly.
 
 ## Architecture
 
@@ -44,8 +50,9 @@ reasons the code specifically corrects for:
   begins.
 - `offset` (default `0.5`) shifts every stage by a fraction of one arc-length interval so no
   stage lands exactly on the crossing.
-- `reverse` flips traversal direction after placement, but always keeps the first point fixed
-  (`[out[0]] + out[1:][::-1]`).
+- `reverse` flips the walk direction, which is a point reflection of every stage through
+  the crossing — the first stage moves too. (An earlier node-based version pinned the
+  first point; that code is gone. `tests/` asserts the reflection.)
 
 If you change stage placement logic, preserve these two corrections — they're the reason the
 diagrams look right instead of lopsided/bunched.

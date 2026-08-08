@@ -1,45 +1,67 @@
-# Demonstrates the full option set: the rings curve, arrow segments with one
-# emphasised feedback edge, quadrant callouts, and wrapped bullet notes.
 title: Delivery lifecycle
 lobes:
   left: Dev
   right: Ops
 stages:
-  - name: Plan
-    label: Shape the work
-    colour: "#1f7fd4"
-    note: "Agree the problem\nSize the outcome\nPick a success measure"
-  - name: Code
-    label: Build it
-    colour: "#1cb0d8"
-    note: "Small changes\nReview before merge\nKeep it reversible"
-  - name: Build
-    label: Package
-    colour: "#17b6b0"
-    note: "Reproducible builds\nPin dependencies\nScan for vulnerabilities"
-  - name: Test
-    label: Check it works
-    colour: "#25c485"
-    note: "Automated suites\nCover the risky paths\nFail fast and loudly"
-  - name: Release
-    label: Approve
-    colour: "#8cc63e"
-    note: "Change record raised\nSign-off captured\nRollback plan ready"
-  - name: Deploy
-    label: Ship safely
-    colour: "#f5b120"
-    note: "Progressive rollout\nGuardrails per environment\nOne switch to stop it"
-  - name: Operate
-    label: Run it
-    colour: "#e8452c"
-    note: "Watch the golden signals\nHandle incidents\nKeep costs in view"
-  - name: Monitor
-    label: Learn and feed back
-    colour: "#c2278d"
-    # a deeper chevron than the rest marks the feedback edge closing the loop
-    arrow_depth: 96
-    note: "Measure real usage\nCompare against the goal\nSend findings back to Plan"
+- name: Plan
+  label: Shape the work
+  note: 'Agree the problem
+
+    Size the outcome
+
+    Pick a success measure'
+- name: Code
+  label: Build it
+  note: 'Small changes
+
+    Review before merge
+
+    Keep it reversible'
+- name: Build
+  label: Package
+  note: 'Reproducible builds
+
+    Pin dependencies
+
+    Scan for vulnerabilities'
+- name: Test
+  label: Check it works
+  note: 'Automated suites
+
+    Cover the risky paths
+
+    Fail fast and loudly'
+- name: Release
+  label: Approve
+  note: 'Change record raised
+
+    Sign-off captured
+
+    Rollback plan ready'
+- name: Deploy
+  label: Ship safely
+  note: 'Progressive rollout
+
+    Guardrails per environment
+
+    One switch to stop it'
+- name: Operate
+  label: Run it
+  note: 'Watch the golden signals
+
+    Handle incidents
+
+    Keep costs in view'
+- name: Monitor
+  label: Learn and feed back
+  arrow_depth: 96
+  note: 'Measure real usage
+
+    Compare against the goal
+
+    Send findings back to Plan'
 style:
+  theme: dark
   width: 2300
   height: 1300
   scale: 640
@@ -56,17 +78,10 @@ style:
   badge_label_size: 27
   note_size: 25
   note_wrap: 30
-  note_bullet: "· "
-  note_colour: "#9aa4ab"
-  background: "#14191d"
-  band_label_colour: "#ffffff"
+  note_bullet: "\xB7 "
   label_size: 26
   title_size: 40
-  title_colour: "#ffffff"
   loop_label_size: 62
-  loop_icon_colour: "#ffffff"
   loop_icon_stroke: 4
   grid: true
-  grid_colour: "#ffffff"
-  grid_opacity: 0.45
-  grid_dash: "4,11"
+  grid_dash: 4,11

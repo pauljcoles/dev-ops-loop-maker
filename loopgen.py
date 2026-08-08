@@ -261,6 +261,42 @@ def ribbon_polygon(seg, half_w, head_end, head_start):
     return poly
 
 
+# ---------------------------------------------------------------- themes
+
+# `theme` fills in every colour that has to agree with the background, so a
+# light diagram does not need each one restated. The two traps it removes:
+# the lobe holes show the background, so the loop labels have to flip with it;
+# and the band labels are white, so a light theme needs deeper stage colours
+# than a dark one -- the dark palette's amber and lime carry white text on a
+# dark ground but not on a white one.
+THEMES = {
+    "dark": {
+        "background": "#14191d",
+        "note_colour": "#9aa4ab",
+        "band_label_colour": "#ffffff",
+        "title_colour": "#ffffff",
+        "loop_icon_colour": "#ffffff",
+        "loop_label_colour": "#ffffff",
+        "grid_colour": "#ffffff",
+        "grid_opacity": 0.45,
+        "palette": ["#1f7fd4", "#1cb0d8", "#17b6b0", "#25c485",
+                    "#8cc63e", "#f5b120", "#e8452c", "#c2278d"],
+    },
+    "light": {
+        "background": "#ffffff",
+        "note_colour": "#55636b",
+        "band_label_colour": "#ffffff",
+        "title_colour": "#12171c",
+        "loop_icon_colour": "#12171c",
+        "loop_label_colour": "#12171c",
+        "grid_colour": "#12171c",
+        "grid_opacity": 0.28,
+        "palette": ["#1565c0", "#0284a6", "#0e8b86", "#179a66",
+                    "#5f8f24", "#c07f08", "#c2371f", "#a01f75"],
+    },
+}
+
+
 # ---------------------------------------------------------------- rendering
 
 def esc(s):
@@ -358,6 +394,9 @@ def render(cfg):
         sys.exit("need at least 2 stages")
 
     style = cfg.get("style", {})
+    if style.get("theme") in THEMES:
+        # explicit keys win, so a theme is a starting point, not a lock-in
+        style = {**THEMES[style["theme"]], **style}
     w = style.get("width", 1200)
     h = style.get("height", 620)
     scale = style.get("scale", 420)
@@ -543,8 +582,10 @@ def render(cfg):
         for group in cells.values():
             group.sort(key=lambda i: node_pts[i][0])
 
-        per_lobe = max(len(g) for g in cells.values())
-        cell_w = (w - 2 * row_margin) / (2 * per_lobe)
+        # no stage carries a note or an icon, so there is nothing to lay out
+        # and no cell grid to derive -- leave the band labels to speak alone
+        per_lobe = max((len(g) for g in cells.values()), default=0)
+        cell_w = (w - 2 * row_margin) / (2 * per_lobe) if per_lobe else 0
         for (lobe, is_top), idxs in cells.items():
             for k, i in enumerate(idxs):
                 col = lobe * per_lobe + k
