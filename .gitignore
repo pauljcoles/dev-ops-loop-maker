@@ -10,3 +10,6 @@ __pycache__/
 
 # private, not for sharing
 private/
+
+# uv / virtualenvs
+.venv/

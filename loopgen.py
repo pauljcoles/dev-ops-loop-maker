@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.9"
+# dependencies = ["pyyaml>=6"]
+# ///
 """
 loopgen - generate infinity-loop (lemniscate) diagrams from YAML.
 
 Usage:
-    python loopgen.py config.yml -o out.svg
+    uv run loopgen.py config.yml -o out.svg     # no install step
+    python loopgen.py config.yml -o out.svg     # needs pyyaml on the path
+
+The block above is PEP 723 inline script metadata. `uv run` reads it, builds
+a throwaway environment with the right Python and PyYAML, and runs the file.
+It is a comment to any other interpreter, so plain `python` still works.
 """
 
 import argparse
