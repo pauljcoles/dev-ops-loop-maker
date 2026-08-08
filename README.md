@@ -14,18 +14,22 @@ Write the phases in YAML. Run the tool to get an SVG. Change a phase name, run i
 
 ## Install
 
-You need Python 3.
+You should get UV
 
 ```
-pip install -r requirements.txt
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-PyYAML is the only requirement.
+You need to sync from pyproject.yaml
+
+```
+uv sync
+```
 
 ## Run it
 
 ```
-python loopgen.py examples/delivery-loop.yml -o loop.svg
+uv run python loopgen.py examples/delivery-loop.yml -o loop.svg
 ```
 
 Open `loop.svg` in a browser.
