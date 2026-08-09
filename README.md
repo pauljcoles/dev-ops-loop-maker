@@ -4,6 +4,8 @@ Makes a DevOps infinity loop from a YAML file. Writes plain SVG.
 
 ![The delivery loop diagram](docs/delivery-loop.png)
 
+**[Try it online](https://paul-3-coles.github.io/dev-ops-loop-maker/)** — no install, runs in your browser.
+
 ## The problem
 
 I needed a custom infinity loop diagram. I wanted my own phase names without wasting time on AI images or design software. I wanted the diagram in git, alongside the document, in a format I could diff.
