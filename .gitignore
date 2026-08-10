@@ -13,3 +13,8 @@ private/
 
 # uv / virtualenvs
 .venv/
+coe/coe.yml
+
+# web
+node_modules/
+web/dist/
