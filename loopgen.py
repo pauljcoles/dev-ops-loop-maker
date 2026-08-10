@@ -847,11 +847,36 @@ def render(cfg):
 def main():
     ap = argparse.ArgumentParser(description="Generate an infinity-loop SVG from YAML.")
     ap.add_argument("config", help="YAML config file")
-    ap.add_argument("-o", "--output", default="loop.svg", help="output SVG path")
+    ap.add_argument("-o", "--output", default="loop.svg", help="output path (.svg or .png)")
+    ap.add_argument("--scale", type=int, default=2, help="PNG scale factor (default 2x)")
     args = ap.parse_args()
 
     cfg = yaml.safe_load(Path(args.config).read_text())
-    Path(args.output).write_text(render(cfg))
+    svg = render(cfg)
+
+    out = Path(args.output)
+    if out.suffix.lower() == ".png":
+        from io import BytesIO
+        from svglib.svglib import svg2rlg
+        from reportlab.graphics import renderPM
+        import tempfile
+        # svglib needs a file, not a string
+        with tempfile.NamedTemporaryFile(suffix=".svg", mode="w", delete=False) as f:
+            f.write(svg)
+            tmp = f.name
+        drawing = svg2rlg(tmp)
+        Path(tmp).unlink()
+        if drawing:
+            scale = args.scale
+            drawing.width *= scale
+            drawing.height *= scale
+            drawing.scale(scale, scale)
+            renderPM.drawToFile(drawing, str(out), fmt="PNG")
+        else:
+            sys.exit("failed to parse SVG for PNG conversion")
+    else:
+        out.write_text(svg)
+    print(f"wrote {args.output}")
     print(f"wrote {args.output}")
 
 
