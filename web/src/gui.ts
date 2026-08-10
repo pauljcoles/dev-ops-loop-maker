@@ -1,3 +1,4 @@
+import yaml from 'js-yaml';
 import type { LoopConfig, Stage, StyleConfig } from './types';
 import { PRESETS } from './presets';
 
@@ -198,6 +199,67 @@ function buildStagesSection(): HTMLElement {
   return wrapper;
 }
 
+function buildImportSection(): HTMLElement {
+  const { wrapper, content } = section('Import YAML / JSON');
+
+  // File picker
+  const fileRow = el('div', { className: 'field' });
+  const fileLabel = el('label', { className: 'field__label' }, ['Load file']);
+  const fileInput = el('input', { type: 'file', className: 'input', accept: '.yml,.yaml,.json' }) as HTMLInputElement;
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = yaml.load(reader.result as string) as LoopConfig;
+        if (parsed && parsed.stages && parsed.stages.length >= 2) {
+          currentConfig = parsed;
+          rebuild();
+          emit();
+        } else {
+          alert('Invalid config: needs at least 2 stages');
+        }
+      } catch (e) {
+        alert('Parse error: ' + (e as Error).message);
+      }
+    };
+    reader.readAsText(file);
+  });
+  fileRow.appendChild(fileLabel);
+  fileRow.appendChild(fileInput);
+  content.appendChild(fileRow);
+
+  // Paste area
+  const pasteRow = el('div', { className: 'field' });
+  const pasteLabel = el('label', { className: 'field__label' }, ['Or paste config']);
+  const textarea = el('textarea', { className: 'input input--textarea', rows: '6', placeholder: 'Paste YAML or JSON here...' }) as HTMLTextAreaElement;
+  const loadBtn = el('button', { className: 'btn btn--small' }, ['Load']);
+  loadBtn.addEventListener('click', () => {
+    const text = textarea.value.trim();
+    if (!text) return;
+    try {
+      const parsed = yaml.load(text) as LoopConfig;
+      if (parsed && parsed.stages && parsed.stages.length >= 2) {
+        currentConfig = parsed;
+        rebuild();
+        emit();
+        textarea.value = '';
+      } else {
+        alert('Invalid config: needs at least 2 stages');
+      }
+    } catch (e) {
+      alert('Parse error: ' + (e as Error).message);
+    }
+  });
+  pasteRow.appendChild(pasteLabel);
+  pasteRow.appendChild(textarea);
+  pasteRow.appendChild(loadBtn);
+  content.appendChild(pasteRow);
+
+  return wrapper;
+}
+
 function buildPresetSection(): HTMLElement {
   const { wrapper, content } = section('Load Example');
   const sel = selectInput(
@@ -294,6 +356,7 @@ function buildTypeSection(): HTMLElement {
 function rebuild(): void {
   editorEl.innerHTML = '';
   editorEl.appendChild(buildPresetSection());
+  editorEl.appendChild(buildImportSection());
   editorEl.appendChild(buildTopSection());
   editorEl.appendChild(buildStagesSection());
   editorEl.appendChild(buildShapeSection());
