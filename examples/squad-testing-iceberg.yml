@@ -1,0 +1,120 @@
+title: The Squad Testing Iceberg
+
+background_image: iceberg-v2.jpg
+
+# Zones map to the iceberg's visible horizontal shelves.
+# Gap between 0.19-0.26 is the waterline dead zone -- no text there.
+zones:
+  - [0.06, 0.19]     # Testing: above water (tip area only, off the waterline)
+  - [0.26, 0.40]     # Automation: first underwater shelf
+  - [0.40, 0.56]     # Quality Engineering: second shelf
+  - [0.56, 0.73]     # Quality Built In: third shelf
+  - [0.73, 0.94]     # Quality Strategy: deepest zone
+
+tiers:
+  - title: Testing
+    subtitle: Visible to everyone
+    bright: true
+    items:
+      - Manual Testing
+      - Regression Testing
+      - E2E Automation
+      - "Playwright /\\nWDIO Runs"
+      - "Release Train\\nSign-off"
+
+  - title: Automation
+    subtitle: Known to some developers
+    bright: true
+    items:
+      - Component Tests
+      - API Tests
+      - Accessibility Testing
+      - Cross-browser Validation
+      - Test Data Management
+      - Environment Strategy
+
+  - title: Quality Engineering
+    subtitle: Occasionally mentioned in planning
+    bright: true
+    items:
+      - Unit Tests
+      - Risk-Based Testing
+      - Contract Testing
+      - Failure Mode Analysis
+      - Observability
+      - Synthetic Monitoring
+      - Production Verification
+
+  - title: Quality Built In
+    subtitle: Do we really need QA involved that early?
+    items:
+      - Example Mapping
+      - Three Amigos
+      - Testability Reviews
+      - Architecture Risk Analysis
+      - Shift Left
+      - Non-functional Requirements
+      - Quality Coaching
+      - Feedback Loop Design
+
+  - title: Quality Strategy
+    subtitle: Looks interesting, but what's the automation coverage?
+    items:
+      - Preventing Defects vs Finding Defects
+      - Organisational Learning
+      - Delivery Risk Reduction
+      - Socio-Technical Systems Thinking
+      - Continuous Improvement
+      - Measuring Confidence Instead of Test Counts
+
+# Per-tier overrides: the top tier needs special treatment
+tier_overrides:
+  0:
+    max_cols: 2
+    heading_reserve: 0.42
+    item_size: 20
+    subtitle_size: 16
+    subtitle_opacity: 0.90
+    text_stroke_width: 2.5
+    text_stroke_color: "rgba(0,0,0,0.65)"
+  1:
+    text_stroke_width: 2
+    text_stroke_color: "rgba(0,0,0,0.55)"
+  2:
+    text_stroke_width: 1.5
+    text_stroke_color: "rgba(0,0,0,0.45)"
+
+style:
+  # Canvas matches image
+  width: 1200
+  height: 1500
+
+  # Title: smaller to give top tier room
+  title_size: 34
+  title_top_pad: 8
+
+  # Text hierarchy
+  heading_size: 26
+  heading_min: 22
+  item_size: 18
+  item_min: 16
+  subtitle_size: 16
+
+  # Opacity: keep items legible throughout
+  subtitle_opacity: 0.80
+  item_opacity_min: 0.90
+
+  # Grid
+  max_cols: 3
+  row_gap: 10
+  heading_reserve: 0.28
+
+  # Safe area: iceberg narrows with depth
+  safe_top_inset: 0.12
+  safe_bottom_inset: 0.28
+
+  # Contrast: shadow + stroke
+  shadow_blur: 7
+  shadow_opacity: 1.0
+  text_stroke_width: 0
+  text_stroke_color: "rgba(0,0,0,0.55)"
